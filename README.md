@@ -9,52 +9,34 @@ This is helpful when using the "Squash and merge" strategy, Github will suggest 
 Examples for valid PR titles:
 - fix(some-scope): correct typo.
 - feat(scope): add support for Node 12.
+- feat: empty scope
 
 ### The commit config
 
-This actions uses the following commitlint configuration
+This actions uses the [@commitlint/config-conventional](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional) that is a shared commitlint config enforcing conventional commits.
 
-```
-{
-  "body-leading-blank": [1, "always"],
-  "body-max-line-length": [2, "always", 100],
-  "footer-leading-blank": [1, "always"],
-  "footer-max-line-length": [2, "always", 100],
-  "header-max-length": [2, "always", 100],
-  "scope-empty": [2, "never"],
-  "scope-case": [2, "always", "lower-case"],
-  "subject-case": [2, "never", ["sentence-case", "start-case", "pascal-case", "upper-case"]],
-  "subject-empty": [2, "never"],
-  "subject-full-stop": [2, "never", "."],
-  "type-case": [2, "always", "lower-case"],
-  "type-empty": [2, "never"],
-  "type-enum": [
-    2,
-    "always",
-    ["build", "chore", "ci", "docs", "feat", "fix", "perf", "refactor", "revert", "style", "test"]
-  ]
-}
-```
-
-You can adjust the `commitlint.config.js` if required.
-
+Refer to https://www.conventionalcommits.org/en/v1.0.0/ for more information.
 
 ## Example github action config in your project
 
 ```yml
 name: "Lint PR Title"
 on:
-  pull_request_target:
+  pull_request:
     types:
       - opened
+      - reopened
       - edited
       - synchronize
+    branches:
+      - master
+      - dev
 
 jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      - uses: dreampulse/action-lint-pull-request-title@master
+      - uses: ArcBlock/action-lint-pull-request-title@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
