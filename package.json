@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/dreampulse/action-lint-pull-request-title#readme",
   "dependencies": {
-    "@actions/core": "^1.2.4",
+    "@actions/core": "^1.9.1",
     "@actions/github": "^1.1.0",
     "@commitlint/config-conventional": "^16.2.1",
     "@commitlint/lint": "^16.2.1"
